@@ -1,1 +1,32 @@
+server:
+  port: 8081
 
+spring:
+  application:
+    name: user-service
+  datasource:
+  #url: jdbc:h2:mem:userdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:file:./data/userdb;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      mode: always
+     # schema-locations: none # Skip schema.sql safely
+      data-locations: classpath:data.sql    # Load only data.sql
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+#      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
